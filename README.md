@@ -55,8 +55,9 @@ _Return_
 - experiences: Array<experiences>
 
 ##### `DELETE /experiences/:id/`
-ok
+
 
 ##### `GET /service/:service_name/experiences/`
 _Return:_
 Array<experiences>
+
