@@ -25,7 +25,7 @@ point:
         "score": 40,
         "tldr": "“Google may also stop providing Services to you, or add or create new limits to our Services at any time.” Google has no obligation from the terms to give you notice in advance or to give a reason for that termination"
       }
-      ```
+```
       
 ##### `GET /experiences/:id/`
 - experience:
@@ -42,7 +42,7 @@ point:
 ##### `POST /experiences/`
 _post body:_
 
-- reading_level <"not_read" | "read_q" | "read_nq"
+- reading_level <"not_read" | "read_q" | "read_nq">
 - review: text
 - service_name: string
 
