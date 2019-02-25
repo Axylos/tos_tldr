@@ -8,14 +8,32 @@ import ShowService from './components/ShowService';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
+  state = {
+    isCommenting: false,
+    savedServices: [],
+    serviceQuery: '',
+    serviceSearchResult: {}
+  }
+
+  handleSearchChange = e => this.setState({ serviceQuery: e.target.value })
+
   render() {
+    const { savedServices, serviceQuery } = this.state;
     return (
       <BrowserRouter>
         <div className="App">
           <h1>Tos tldr</h1>
           <div>the end</div>
         <Switch>
-          <Route exact path='/' component={Home} />
+          <Route 
+            exact path='/' 
+            component={props => <Home {...props}
+              savedServices={savedServices}
+              handleSearchChange={this.handleSearchChange}
+              handleSearchSubmit={this.handleSearchSubmit}
+              serviceQuery={serviceQuery}
+            />} 
+          />
           <Route path='search-result' component={SearchResult} />
           <Route path='review-service' component={ReviewSvcForm} />
           <Route path='service' component={ShowService} />

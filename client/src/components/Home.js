@@ -1,9 +1,31 @@
 import React from 'react';
 
-const Home = () => {
+const Home = ({ 
+        savedServices, 
+        handleSearchSubmit, 
+        handleSearchChange,
+        serviceQuery
+    }) => {
     return (
-        <div>
-            List of user's added services and also a search box for searching other services. 
+        <div className='home-container'>
+            <div className='my-services-container'>
+                <h1>My services:</h1>
+                <ul>
+                    {savedServices.map(service => <li>{service.name}</li>)}
+                </ul>
+            </div>
+            <div className='search-container'>
+                <form onSubmit={handleSearchSubmit} >
+                    <label>
+                        Search Term
+                    </label>
+                    <input
+                        onChange={handleSearchChange} 
+                        value={serviceQuery}
+                    />
+                    <input type='submit'/>
+                </form>
+            </div>
         </div>
     );
 };
