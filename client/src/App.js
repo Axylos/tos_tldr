@@ -20,7 +20,7 @@ class App extends Component {
   render() {
     const { savedServices, serviceQuery } = this.state;
     return (
-      <BrowserRouter>
+      <BrowserRouter basename="/static/tos_tldr/index.html/>
         <div className="App">
           <h1>Tos tldr</h1>
           <div>the end</div>
