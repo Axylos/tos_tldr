@@ -5,6 +5,7 @@ import OtherExperiences from './components/OtherExperiences';
 import ReviewSvcForm from './components/ReviewSvcForm';
 import SearchResult from './components/SearchResult';
 import ShowService from './components/ShowService';
+import { apiTest } from './services/tos';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
@@ -16,6 +17,11 @@ class App extends Component {
   }
 
   handleSearchChange = e => this.setState({ serviceQuery: e.target.value })
+
+  async componentDidMount() {
+    const data = await apiTest();
+    console.log(data);
+  }
 
   render() {
     const { savedServices, serviceQuery } = this.state;
@@ -40,7 +46,7 @@ class App extends Component {
           <Route path='other-experiences' component={OtherExperiences} />
         </Switch>
         </div>
-      </ BrowserRouter>
+      </BrowserRouter>
     );
   }
 }
