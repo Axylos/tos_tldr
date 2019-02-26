@@ -1,4 +1,4 @@
-from node:8.15.0-alpine
+from arm64v8/node:8.15.0-alpine
 
 WORKDIR /usr/src/app
 
