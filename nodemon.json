@@ -1,0 +1,11 @@
+{
+  "verbose": true,
+  "ignore": [
+    "v1/",
+    "client/",
+    "node_modules/",
+    "README.md",
+    "Dockerfile",
+    ".dockerignore"
+  ]
+}
