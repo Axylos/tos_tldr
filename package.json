@@ -6,7 +6,8 @@
   "author": "axylos <robertdraketalley@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start": ""
   },
   "dependencies": {
     "axios": "^0.18.0",
