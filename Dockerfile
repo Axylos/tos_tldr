@@ -4,7 +4,10 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm i --global yarn
+RUN npm config set unsafe-perm true \
+    && npm install yarn \
+    && npm config set unsafe-perm false
+
 RUN yarn install --production
 
 COPY . .
