@@ -6,6 +6,7 @@ import OtherExperiences from './components/OtherExperiences';
 import ReviewSvcForm from './components/ReviewSvcForm';
 import SearchResult from './components/SearchResult';
 import ShowService from './components/ShowService';
+import { searchService } from './services/tos';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
@@ -30,12 +31,13 @@ class App extends Component {
     this.getToken()
   }
 
-  handleSearchChange = e => this.setState({ serviceQuery: e.target.value })
+  handleSearchChange = e => { this.setState({ serviceQuery: e.target.value }) }
 
-  handleSearchSubmit = async () => {
+  handleSearchSubmit = async e => {
+    const { serviceQuery } = this.state;
+    e.preventDefault();
     try {
-      const serviceResult = axios('https://tosdr.org/api/1/service')
-      //header here?
+      const serviceResult = searchService(serviceQuery);
       this.setState({ serviceResult })
     } catch (error) {
       console.log(error)
@@ -52,7 +54,7 @@ class App extends Component {
         <Switch>
           <Route 
             exact path='/' 
-            component={props => <Home {...props}
+            render={props => <Home {...props}
               savedServices={savedServices}
               handleSearchChange={this.handleSearchChange}
               handleSearchSubmit={this.handleSearchSubmit}

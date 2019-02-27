@@ -23,7 +23,7 @@ const Home = ({
                         onChange={handleSearchChange} 
                         value={serviceQuery}
                     />
-                    <input type='submit'/>
+                    <input type='submit' value='Submit'/>
                 </form>
             </div>
         </div>
