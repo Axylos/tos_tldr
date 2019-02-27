@@ -7,6 +7,7 @@ import ReviewSvcForm from './components/ReviewSvcForm';
 import SearchResult from './components/SearchResult';
 import ShowService from './components/ShowService';
 import { searchService } from './services/tos';
+import Sandbox from './components/Sandbox';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
@@ -66,6 +67,7 @@ class App extends Component {
           <Route path='review-service' component={ReviewSvcForm} />
           <Route path='service' component={ShowService} />
           <Route path='other-experiences' component={OtherExperiences} />
+          <Route path="/sandbox" component={Sandbox} />
         </Switch>
         </div>
       </BrowserRouter>

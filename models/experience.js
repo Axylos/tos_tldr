@@ -9,8 +9,15 @@ module.exports = (sequelize, DataTypes) => {
     user_id: {
       type: DataTypes.UUID,
       allowNull: false,
-    }
+    },
   }, {});
+
+  Experience.associate = (models) => {
+    models.Experience.hasMany(models.Comment, {
+      foreignKey: 'experience_id',
+      as: 'comments',
+    });
+  };
 
   return Experience;
 };
