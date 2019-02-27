@@ -35,8 +35,17 @@ const createExperience = async (experience) => {
   }
 }
 
+const getUserExperiences = async () => {
+  try {
+    const resp = await api.get('/user/experiences');
+    return resp.data;
+  } catch (e) {
+    console.log(e.message);
+  }
+}
 export {
   apiTest,
   getExperience,
-  createExperience
+  createExperience,
+  getUserExperiences,
 }

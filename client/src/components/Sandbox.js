@@ -1,7 +1,8 @@
 import React from 'react';
 import { 
   createExperience,
-  getExperience
+  getExperience,
+  getUserExperiences,
 } from '../services/tos';
 
 class Sandbox extends React.Component {
@@ -11,7 +12,7 @@ class Sandbox extends React.Component {
       reading_level: 'not_read',
       review: 'omg'
     };
-    const data = await getExperience(2);
+    const data = await getUserExperiences();
 
     console.log(data);
   }
