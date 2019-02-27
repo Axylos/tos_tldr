@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": null,
+    "database": "tos_tldr_dev",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "test": {
+    "username": "postgres",
+    "password": null,
+    "database": "tos_tldr_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "postgres",
+    "password": null,
+    "database": "tos_tldr",
+    "host": "192.168.1.176",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  }
+}

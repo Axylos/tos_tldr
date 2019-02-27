@@ -1,3 +1,7 @@
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 const logger = require('morgan');
 const { app } = require('./app');
 
