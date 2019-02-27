@@ -9,6 +9,14 @@ const api = axios.create({
   }
 });
 
+const getExperience = async (id) => {
+  try {
+    const resp = await api(`/experiences/${id}`);
+    return resp.data;
+  } catch (e) {
+    console.log(e.message);
+  }
+}
 const apiTest = async () => {
   try {
     const resp = await api('/')
@@ -29,5 +37,6 @@ const createExperience = async (experience) => {
 
 export {
   apiTest,
+  getExperience,
   createExperience
 }

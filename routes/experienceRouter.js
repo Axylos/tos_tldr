@@ -4,15 +4,29 @@ const { Experience } = require('../models');
 experienceRouter.post('/', async (req, res) => {
   try {
     const { user } = res.locals;
-    console.log(user);
     const data = {
       ...req.body,
-      user_id: user.id
-    }
+      user_id: user.id,
+    };
     const result = await Experience.create(data);
     res.json({ experience: result });
   } catch (e) {
     console.log('error: ', e.message);
+    res.status(500).send(e.message);
+  }
+});
+
+experienceRouter.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const experience = await Experience.findById(id);
+    if (experience === null) {
+      res.status(404).send('Invalid Id');
+    } else {
+      res.json({ experience });
+    }
+  } catch (e) {
+    console.log(`error: ${e.message}`);
     res.status(500).send(e.message);
   }
 });

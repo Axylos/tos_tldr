@@ -66,7 +66,7 @@ class App extends Component {
           <Route path='other-experiences' component={OtherExperiences} />
         </Switch>
         </div>
-      </ BrowserRouter>
+      </BrowserRouter>
     );
   }
 }

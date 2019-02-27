@@ -1,5 +1,8 @@
 import React from 'react';
-import { createExperience } from '../services/tos';
+import { 
+  createExperience,
+  getExperience
+} from '../services/tos';
 
 class Sandbox extends React.Component {
   async componentDidMount() {
@@ -8,7 +11,7 @@ class Sandbox extends React.Component {
       reading_level: 'not_read',
       review: 'omg'
     };
-    const data = await createExperience(exp);
+    const data = await getExperience(2);
 
     console.log(data);
   }
