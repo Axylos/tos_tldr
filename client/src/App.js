@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
+import axios from 'axios';
 import Home from './components/Home';
 import OtherExperiences from './components/OtherExperiences';
 import ReviewSvcForm from './components/ReviewSvcForm';
 import SearchResult from './components/SearchResult';
 import ShowService from './components/ShowService';
-import { apiTest } from './services/tos';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
@@ -13,20 +13,39 @@ class App extends Component {
     isCommenting: false,
     savedServices: [],
     serviceQuery: '',
-    serviceSearchResult: {}
+    serviceResult: {},
+    token: ''
+  }
+
+  setToken = token => {
+    localStorage.setItem('token', token)
+  }
+
+  getToken = () => {
+    const token = localStorage.getItem('token')
+    this.setState({ token })
+  }
+
+  componentDidMount = () => {
+    this.getToken()
   }
 
   handleSearchChange = e => this.setState({ serviceQuery: e.target.value })
 
-  async componentDidMount() {
-    const data = await apiTest();
-    console.log(data);
+  handleSearchSubmit = async () => {
+    try {
+      const serviceResult = axios('https://tosdr.org/api/1/service')
+      //header here?
+      this.setState({ serviceResult })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   render() {
-    const { savedServices, serviceQuery } = this.state;
+    const { savedServices, serviceQuery, serviceResult } = this.state;
     return (
-      <BrowserRouter basename="/static/tos_tldr/index.html/">
+      <BrowserRouter>
         <div className="App">
           <h1>Tos tldr</h1>
           <div>the end</div>
@@ -38,6 +57,7 @@ class App extends Component {
               handleSearchChange={this.handleSearchChange}
               handleSearchSubmit={this.handleSearchSubmit}
               serviceQuery={serviceQuery}
+              serviceResult={serviceResult}
             />} 
           />
           <Route path='search-result' component={SearchResult} />
@@ -46,7 +66,7 @@ class App extends Component {
           <Route path='other-experiences' component={OtherExperiences} />
         </Switch>
         </div>
-      </BrowserRouter>
+      </ BrowserRouter>
     );
   }
 }
