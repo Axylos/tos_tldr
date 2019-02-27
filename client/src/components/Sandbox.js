@@ -12,7 +12,7 @@ class Sandbox extends React.Component {
       reading_level: 'not_read',
       review: 'omg'
     };
-    const data = await getUserExperiences();
+    const data = await getExperience(2);
 
     console.log(data);
   }

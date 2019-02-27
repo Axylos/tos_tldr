@@ -1,5 +1,5 @@
 const experienceRouter = require('express').Router();
-const { Experience } = require('../models');
+const { Experience, Comment } = require('../models');
 
 experienceRouter.post('/', async (req, res) => {
   try {
@@ -19,7 +19,9 @@ experienceRouter.post('/', async (req, res) => {
 experienceRouter.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const experience = await Experience.findById(id);
+    const experience = await Experience.findById(id, {
+      include: [{ model: Comment, as: 'comments' }],
+    });
     if (experience === null) {
       res.status(404).send('Invalid Id');
     } else {
