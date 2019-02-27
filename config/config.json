@@ -5,7 +5,8 @@
     "database": "tos_tldr_dev",
     "host": "127.0.0.1",
     "dialect": "postgres",
-    "operatorsAliases": false
+    "operatorsAliases": false,
+    "typeValidation": true
   },
   "test": {
     "username": "postgres",
@@ -13,7 +14,8 @@
     "database": "tos_tldr_test",
     "host": "127.0.0.1",
     "dialect": "postgres",
-    "operatorsAliases": false
+    "operatorsAliases": false,
+    "typeValidation": true
   },
   "production": {
     "username": "postgres",
@@ -21,6 +23,7 @@
     "database": "tos_tldr",
     "host": "192.168.1.176",
     "dialect": "postgres",
-    "operatorsAliases": false
+    "operatorsAliases": false,
+    "typeValidation": true
   }
 }

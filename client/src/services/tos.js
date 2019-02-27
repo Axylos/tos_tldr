@@ -10,10 +10,24 @@ const api = axios.create({
 });
 
 const apiTest = async () => {
-  const resp = await api('/')
-  return resp.data;
+  try {
+    const resp = await api('/')
+    return resp.data;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
+const createExperience = async (experience) => {
+  try {
+    const resp = await api.post('/experiences', experience);
+    return resp.data;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export {
-  apiTest
+  apiTest,
+  createExperience
 }

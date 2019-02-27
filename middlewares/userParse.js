@@ -2,7 +2,7 @@ const userParse = (req, res, next) => {
   let user = {
     name: 'bobby',
     email: 'bobby@gmail.com',
-    id: 3,
+    id: '305b9d34-e959-4d5c-98a9-1cdefb0fa8d0',
   };
 
   if (process.env.NODE_ENV === 'production') {
