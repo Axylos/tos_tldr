@@ -6,6 +6,10 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
+    experience_id: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    },
     text: {
       allowNull: false,
       type: DataTypes.TEXT,

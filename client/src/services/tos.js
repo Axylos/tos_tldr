@@ -20,6 +20,15 @@ const searchService = async svcName => {
   }
 }
 
+const createComment = async (comment, experienceId) => {
+  try {
+    const resp = await api.post(`/experiences/${experienceId}/comments`, { comment });
+    return resp.data;
+  } catch (e) {
+    console.log(e.message);
+  }
+}
+
 const getExperience = async (id) => {
   try {
     const resp = await api(`/experiences/${id}`);
@@ -59,5 +68,6 @@ export {
   getExperience,
   createExperience,
   getUserExperiences,
+  createComment,
   searchService
 }

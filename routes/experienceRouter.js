@@ -33,6 +33,22 @@ experienceRouter.get('/:id', async (req, res) => {
   }
 });
 
+experienceRouter.post('/:id/comments', async (req, res) => {
+  const { comment } = req.body;
+  const { id } = req.params;
+
+  try {
+    const exp = await Experience.findByPk(id);
+    const com = Comment.build({ text: comment, user_id: res.locals.user.id });
+    com.experience_id = exp.id
+    await com.save();
+    res.json({msg: com});
+  } catch (e) {
+    console.log(e.message);
+    res.status(500).send(e.message);
+  }
+});
+
 module.exports = {
   experienceRouter,
 };
