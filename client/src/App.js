@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import axios from 'axios';
 import Home from './components/Home';
 import OtherExperiences from './components/OtherExperiences';
 import ReviewSvcForm from './components/ReviewSvcForm';
@@ -29,7 +28,8 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    this.getToken()
+    this.setToken('305b9d34-e959-4d5c-98a9-1cdefb0fa8d0');
+    this.getToken();
   }
 
   handleSearchChange = e => { this.setState({ serviceQuery: e.target.value }) }

@@ -13,7 +13,7 @@ const api = axios.create({
 const searchService = async svcName => {
   try {
     const svcResp = await api(`/search/?service=${svcName}`);
-    //something missing here.
+    console.log(svcResp)
     return svcResp.data;
   } catch (error) {
     console.log(error.message);
