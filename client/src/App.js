@@ -7,7 +7,9 @@ import SearchResult from './components/SearchResult';
 import ShowService from './components/ShowService';
 import { searchService } from './services/tos';
 import Sandbox from './components/Sandbox';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch, Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+const history = createBrowserHistory();
 
 class App extends Component {
   state = {
@@ -38,17 +40,18 @@ class App extends Component {
     const { serviceQuery } = this.state;
     e.preventDefault();
     try {
-      const serviceResult = searchService(serviceQuery);
+      const serviceResult = await searchService(serviceQuery);
       this.setState({ serviceResult })
     } catch (error) {
       console.log(error)
     }
+    return history.push('/search-result')
   }
 
   render() {
     const { savedServices, serviceQuery, serviceResult } = this.state;
     return (
-      <BrowserRouter basename="/static/tos_tldr/index.html/">
+      <Router history={history}>
         <div className="App">
           <h1>Tos tldr</h1>
           <div>the end</div>
@@ -63,14 +66,19 @@ class App extends Component {
               serviceResult={serviceResult}
             />} 
           />
-          <Route path='search-result' component={SearchResult} />
-          <Route path='review-service' component={ReviewSvcForm} />
-          <Route path='service' component={ShowService} />
-          <Route path='other-experiences' component={OtherExperiences} />
+          <Route 
+            path='/search-result'
+            component={props => <SearchResult {...props}
+            serviceResult={serviceResult}
+            />}
+          />
+          <Route path='/review-service' component={ReviewSvcForm} />
+          <Route path='/service' component={ShowService} />
+          <Route path='/other-experiences' component={OtherExperiences} />
           <Route path="/sandbox" component={Sandbox} />
         </Switch>
         </div>
-      </BrowserRouter>
+      </Router>
     );
   }
 }

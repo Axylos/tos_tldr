@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:8080';
+const BASE_URL = 'http://localhost:8080';
 const TOKEN = '305b9d34-e959-4d5c-98a9-1cdefb0fa8d0'
 
 const api = axios.create({
@@ -13,7 +13,6 @@ const api = axios.create({
 const searchService = async svcName => {
   try {
     const svcResp = await api(`/search/?service=${svcName}`);
-    console.log(svcResp)
     return svcResp.data;
   } catch (error) {
     console.log(error.message);
