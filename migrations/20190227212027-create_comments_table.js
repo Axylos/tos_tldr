@@ -5,6 +5,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
+        onDelete: 'CASCADE',
         type: Sequelize.INTEGER,
       },
       experience_id: {

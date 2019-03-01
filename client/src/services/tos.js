@@ -20,6 +20,14 @@ const searchService = async svcName => {
   }
 }
 
+const deleteExperience = async (id) => {
+  try {
+    const resp = await api.delete(`/experiences/${id}`);
+    return resp.data;
+  } catch (e) {
+    console.log(e.message);
+  }
+}
 const createComment = async (comment, experienceId) => {
   try {
     const resp = await api.post(`/experiences/${experienceId}/comments`, { comment });
@@ -69,5 +77,6 @@ export {
   createExperience,
   getUserExperiences,
   createComment,
+  deleteExperience,
   searchService
 }

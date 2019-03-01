@@ -30,8 +30,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
 
   Comment.associate = (models) => {
+    // adding onDelete here should make it cascade
+    // but apparently this is broken and has to be handled
+    // inside the migration
     models.Comment.belongsTo(models.Experience, {
-      onDelete: 'CASCADE',
+      //onDelete: 'cascade', // cascade also has to be present in the migration 
       foreignKey: 'experience_id',
       as: 'experience',
     });

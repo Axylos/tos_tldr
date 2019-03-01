@@ -33,6 +33,21 @@ experienceRouter.get('/:id', async (req, res) => {
   }
 });
 
+experienceRouter.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const exp = await Experience.findByPk(id);
+    if (exp === null) {
+      res.status(404).send('Invalid Id');
+    } else {
+      await exp.destroy();
+      res.status(202).send('succesfully deleted');
+    }
+  } catch (e) {
+    console.log(e.message);
+    res.status(500).send(e.message);
+  }
+})
 experienceRouter.post('/:id/comments', async (req, res) => {
   const { comment } = req.body;
   const { id } = req.params;
