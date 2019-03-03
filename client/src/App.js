@@ -5,7 +5,11 @@ import OtherExperiences from './components/OtherExperiences';
 import ReviewSvcForm from './components/ReviewSvcForm';
 import SearchResult from './components/SearchResult';
 import ShowService from './components/ShowService';
-import { searchService } from './services/tos';
+import {
+  searchService,
+  getUserExperiences,
+  createExperience
+ } from './services/tos';
 import Sandbox from './components/Sandbox';
 import { Route, Switch, Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
@@ -17,7 +21,10 @@ class App extends Component {
     savedServices: [],
     serviceQuery: '',
     serviceResult: {},
-    token: ''
+    token: '',
+    userExperiences: '',
+    reading_level: '',
+    review: ''
   }
 
   setToken = token => {
@@ -29,9 +36,15 @@ class App extends Component {
     this.setState({ token })
   }
 
+  setExperiences = async () => {
+    const userExperiences = await getUserExperiences();
+    this.setState({ userExperiences });
+  }
+
   componentDidMount = () => {
     this.setToken('305b9d34-e959-4d5c-98a9-1cdefb0fa8d0');
     this.getToken();
+    this.setExperiences();
   }
 
   handleSearchChange = e => { this.setState({ serviceQuery: e.target.value }) }
@@ -48,8 +61,30 @@ class App extends Component {
     return history.push('/search-result')
   }
 
+  handleReviewChange = e => {
+    const name = e.target.name;
+    this.setState({ [name]: e.target.value });
+  }
+
+  handleReviewSubmit = async e => {
+    const { reading_level, review, serviceResult: { service: { name }}} = this.state;
+    e.preventDefault();
+    const reviewPostBody = {
+      reading_level,
+      review,
+      service_name: name
+    }
+    createExperience(reviewPostBody);
+  }
+
   render() {
-    const { savedServices, serviceQuery, serviceResult } = this.state;
+    const {
+      savedServices,
+      serviceQuery,
+      serviceResult,
+      reading_level,
+      review
+    } = this.state;
     return (
       <Router history={history}>
         <div className="App">
@@ -72,7 +107,16 @@ class App extends Component {
             serviceResult={serviceResult}
             />}
           />
-          <Route path='/review-service' component={ReviewSvcForm} />
+          <Route
+            path='/review-service'
+            render={props => <ReviewSvcForm {...props}
+              serviceResult={serviceResult}
+              reading_level={reading_level}
+              review={review}
+              handleReviewChange={this.handleReviewChange}
+              handleReviewSubmit={this.handleReviewSubmit}
+            />}
+          />
           <Route path='/service' component={ShowService} />
           <Route path='/other-experiences' component={OtherExperiences} />
           <Route path="/sandbox" component={Sandbox} />
