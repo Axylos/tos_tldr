@@ -1,10 +1,17 @@
 import React from 'react';
 import AddCommentForm from './AddCommentForm';
 
-const ShowService = () => {
+const ShowService = ({ experience }) => {
     return (
         <div>
-            Herein a service shall be shown. There shalt be an add comment button. Link to me from the home page and also from the OtherExperience page. 
+            {experience &&
+                <div>
+                    <h1>{experience.experience.name}</h1>
+                    <div>{experience.experience.reading_level}</div>
+                    <div>{experience.experience.review}</div>
+                </div>
+            }
+
             <AddCommentForm />
         </div>
     );

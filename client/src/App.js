@@ -8,7 +8,8 @@ import ShowService from './components/ShowService';
 import {
   searchService,
   getUserExperiences,
-  createExperience
+  createExperience,
+  getExperience
  } from './services/tos';
 import Sandbox from './components/Sandbox';
 import { Route, Switch, Router } from 'react-router-dom';
@@ -24,7 +25,8 @@ class App extends Component {
     token: '',
     userExperiences: '',
     reading_level: '',
-    review: ''
+    review: '',
+    experience: ''
   }
 
   setToken = token => {
@@ -66,7 +68,7 @@ class App extends Component {
     this.setState({ [name]: e.target.value });
   }
 
-  handleReviewSubmit = e => {
+  handleReviewSubmit = async e => {
     const { reading_level, review, serviceResult: { service: { name }}} = this.state;
     e.preventDefault();
     const reviewPostBody = {
@@ -74,8 +76,23 @@ class App extends Component {
       review,
       service_name: name
     }
-    createExperience(reviewPostBody);
-    return history.push('/service');
+    try {
+      const newExp = await createExperience(reviewPostBody);
+      const { experience: { id } } = newExp;
+      this.getExperienceToShow(id);
+      return history.push('/service');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  getExperienceToShow = async id => {
+    try {
+      const experience = await getExperience(id);
+      this.setState({ experience });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render() {
@@ -84,7 +101,8 @@ class App extends Component {
       serviceQuery,
       serviceResult,
       reading_level,
-      review
+      review,
+      experience
     } = this.state;
     return (
       <Router history={history}>
@@ -118,7 +136,12 @@ class App extends Component {
               handleReviewSubmit={this.handleReviewSubmit}
             />}
           />
-          <Route path='/service' component={ShowService} />
+          <Route
+            path='/service'
+            render={props => <ShowService {...props}
+              experience={experience}
+            />}
+          />
           <Route path='/other-experiences' component={OtherExperiences} />
           <Route path="/sandbox" component={Sandbox} />
         </Switch>
