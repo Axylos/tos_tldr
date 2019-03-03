@@ -102,7 +102,7 @@ class App extends Component {
       review,
       experience
     } = this.state;
-    console.log(this.props.location);
+
     return (
         <div className="App">
           <h1>Tos tldr</h1>

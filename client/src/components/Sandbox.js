@@ -3,6 +3,7 @@ import {
   createExperience,
   createComment,
   getExperience,
+  getServiceExperiences,
   getUserExperiences,
 } from '../services/tos';
 
@@ -13,7 +14,7 @@ class Sandbox extends React.Component {
       reading_level: 'read',
       review: 'omg'
     };
-    const data = await getExperience(9);
+    const data = await getServiceExperiences('google');
 
     console.log(data);
   }
