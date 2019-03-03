@@ -66,7 +66,7 @@ class App extends Component {
     this.setState({ [name]: e.target.value });
   }
 
-  handleReviewSubmit = async e => {
+  handleReviewSubmit = e => {
     const { reading_level, review, serviceResult: { service: { name }}} = this.state;
     e.preventDefault();
     const reviewPostBody = {
@@ -75,6 +75,7 @@ class App extends Component {
       service_name: name
     }
     createExperience(reviewPostBody);
+    return history.push('/service');
   }
 
   render() {
