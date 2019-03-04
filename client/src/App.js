@@ -19,7 +19,6 @@ const history = createBrowserHistory();
 class App extends Component {
   state = {
     isCommenting: false,
-    savedServices: [],
     serviceQuery: '',
     serviceResult: {},
     token: '',
@@ -97,7 +96,7 @@ class App extends Component {
 
   render() {
     const {
-      savedServices,
+      userExperiences,
       serviceQuery,
       serviceResult,
       reading_level,
@@ -113,7 +112,7 @@ class App extends Component {
           <Route 
             exact path='/' 
             render={props => <Home {...props}
-              savedServices={savedServices}
+              userExperiences={userExperiences}
               handleSearchChange={this.handleSearchChange}
               handleSearchSubmit={this.handleSearchSubmit}
               serviceQuery={serviceQuery}

@@ -17,6 +17,7 @@ const ReviewSvcForm = ({
                     <option value='read_q'>I read it but didn't understand it</option>
                     <option value='not_read'>I didn't read it</option>
                 </select>
+                <label>Leave a review:</label>
                 <textarea value={review} name='review' onChange={handleReviewChange} />
                 <input type='submit' value='Submit'></input>
             </form>
