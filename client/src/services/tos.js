@@ -10,6 +10,14 @@ const api = axios.create({
   }
 });
 
+const getServiceExperiences = async (service) => {
+  try {
+    const resp = await api(`/services/${service}/experiences`);
+    return resp.data;
+  } catch (e) {
+    console.log(e.message);
+  }
+}
 const searchService = async svcName => {
   try {
     const svcResp = await api(`/search/?service=${svcName}`);
@@ -77,5 +85,6 @@ export {
   getUserExperiences,
   createComment,
   deleteExperience,
-  searchService
+  searchService,
+  getServiceExperiences,
 }

@@ -12,9 +12,7 @@ import {
   getExperience
  } from './services/tos';
 import Sandbox from './components/Sandbox';
-import { Route, Switch, Router } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
-const history = createBrowserHistory();
+import { withRouter, Route, Switch, Router } from 'react-router-dom';
 
 class App extends Component {
   state = {
@@ -59,7 +57,7 @@ class App extends Component {
     } catch (error) {
       console.log(error)
     }
-    return history.push('/search-result')
+    return this.props.history.push('/search-result')
   }
 
   handleReviewChange = e => {
@@ -79,7 +77,7 @@ class App extends Component {
       const newExp = await createExperience(reviewPostBody);
       const { experience: { id } } = newExp;
       this.getExperienceToShow(id);
-      return history.push('/service');
+      return this.props.history.push('/service');
     } catch (error) {
       console.log(error);
     }
@@ -103,8 +101,8 @@ class App extends Component {
       review,
       experience
     } = this.state;
+
     return (
-      <Router history={history}>
         <div className="App">
           <h1>Tos tldr</h1>
           <div>the end</div>
@@ -145,9 +143,8 @@ class App extends Component {
           <Route path="/sandbox" component={Sandbox} />
         </Switch>
         </div>
-      </Router>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

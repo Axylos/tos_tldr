@@ -1,19 +1,11 @@
-const axios = require('axios');
 const searchRouter = require('express').Router();
-
-const BASE_URL = 'https://tosdr.org/api/1/service';
-
-const api = axios.create({
-  baseURL: BASE_URL,
-});
+const tosService = require('../services/tos');
 
 searchRouter.get('/', async (req, res) => {
   const { service } = req.query;
   if (service !== undefined) {
     try {
-      const resp = await api(`/${service}.json`);
-      const { data } = resp;
-      const { urls, links, pointsData } = data;
+      const { urls, links, pointsData } = await tosService.fetchService(service);
       res.json({
         service: {
           urls,
