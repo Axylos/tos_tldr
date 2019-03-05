@@ -1,9 +1,15 @@
 import React from 'react';
 
-const OtherExperiences = () => {
+const OtherExperiences = ({ experiences }) => {
     return (
         <div>
-            I will be a list of people who reviewed a particular service. Link to me within the SearchResult component.
+            <h1>Others' experiences</h1>
+            {experiences && experiences.results.map(experience => (
+                <div key={experience.id}>
+                    <div>{experience.user_id}</div>
+                    <div>{experience.reading_level}</div>
+                </div>
+            ))}
         </div>
     );
 };

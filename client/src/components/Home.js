@@ -11,7 +11,7 @@ const Home = ({
             <div className='my-services-container'>
                 <h1>My services:</h1>
                 <ul>
-                    {experiences && experiences.map(service => <li>{service.service_name}</li>)}
+                    {experiences && experiences.map(service => <li key={service.id}>{service.service_name}</li>)}
                 </ul>
             </div>
             <div className='search-container'>

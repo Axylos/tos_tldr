@@ -9,10 +9,11 @@ import {
   searchService,
   getUserExperiences,
   createExperience,
-  getExperience
+  getExperience,
+  getServiceExperiences
  } from './services/tos';
 import Sandbox from './components/Sandbox';
-import { withRouter, Route, Switch, Router } from 'react-router-dom';
+import { withRouter, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
   state = {
@@ -23,7 +24,8 @@ class App extends Component {
     userExperiences: '',
     reading_level: '',
     review: '',
-    experience: ''
+    experience: '',
+    experiences: ''
   }
 
   setToken = token => {
@@ -50,14 +52,15 @@ class App extends Component {
 
   handleSearchSubmit = async e => {
     const { serviceQuery } = this.state;
+    const { history } = this.props;
     e.preventDefault();
     try {
       const serviceResult = await searchService(serviceQuery);
-      this.setState({ serviceResult })
+      this.setState({ serviceResult });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    return this.props.history.push('/search-result')
+    return history.push('/search-result');
   }
 
   handleReviewChange = e => {
@@ -76,8 +79,9 @@ class App extends Component {
     try {
       const newExp = await createExperience(reviewPostBody);
       const { experience: { id } } = newExp;
+      const { history } = this.props;
       this.getExperienceToShow(id);
-      return this.props.history.push('/service');
+      return history.push('/service');
     } catch (error) {
       console.log(error);
     }
@@ -92,6 +96,16 @@ class App extends Component {
     }
   }
 
+  getOthersExperiences = async () => {
+    const { serviceQuery } = this.state;
+    try {
+      const experiences = await getServiceExperiences(serviceQuery);
+      this.setState({ experiences });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   render() {
     const {
       userExperiences,
@@ -99,13 +113,13 @@ class App extends Component {
       serviceResult,
       reading_level,
       review,
-      experience
+      experience,
+      experiences,
     } = this.state;
 
     return (
         <div className="App">
           <h1>Tos tldr</h1>
-          <div>the end</div>
         <Switch>
           <Route 
             exact path='/' 
@@ -121,6 +135,7 @@ class App extends Component {
             path='/search-result'
             component={props => <SearchResult {...props}
             serviceResult={serviceResult}
+            getOthersExperiences={this.getOthersExperiences}
             />}
           />
           <Route
@@ -139,7 +154,12 @@ class App extends Component {
               experience={experience}
             />}
           />
-          <Route path='/other-experiences' component={OtherExperiences} />
+          <Route
+            path='/other-experiences'
+            render={props => <OtherExperiences {...props}
+              experiences={experiences}
+            />}
+          />
           <Route path="/sandbox" component={Sandbox} />
         </Switch>
         </div>
